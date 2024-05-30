@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizualizacja pliku XML sprawozdania finansowego</title>
+    
+    <style>
+        .obraz {
+            margin-top: 20px;
+            background-image: url("sprawozdanie.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 1040px;
+            height: 540px;
+            opacity: 0.4;
+            border-top: 1px dotted black;
+        }
+        div.pg {
+            font-family: "Arial", sans-serif;
+            font-size: 14px;
+            overflow-x: hidden;
+        }
+        div.info {
+            position: absolute;
+            bottom: 20px;
+            font-size: small;
+        }
+        h1.pg {
+            margin-top: 10px;
+            color: #20b2aa;
+        }
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+    
+    <div id="loader" class="pg">
+        <h1 class="pg">Wizualizacja pliku XML sprawozdania finansowego</h1>
+        <form id="form" action="/xml" method="POST" enctype="multipart/form-data">
+            <p>Wybierz plik XML ze sprawozdaniem finansowym (typu <b>Jednostka Inna|Mała|Mikro|Op</b>)</p>
+            <input type="file" id="file2" name="file2"/>
+        </form>
+
+    <h1>Albo wybierz plik XML z listy serwerowej:</h1>
+    <select id="xmlFiles">
+        <option value="" selected disabled>Wybierz plik XML</option>
+    </select>
+    <script src="scripts.js"></script>
+        <div class="pg obraz"></div>
+        <div class="pg sample"></div>
+    </div>
+
+    <script>
+        const xsltProcessor = new XSLTProcessor();
+
+        const kopiaElementow = (xsl, zmienna, xml, tag, elementy) => {
+            let varNode;
+            for (let el of xsl.getElementsByTagName("xsl:variable")) {
+                if (el.getAttribute('name') == zmienna)
+                    varNode = el;
+            }
+
+            let elements = xml.children[0].children;
+            for (let el of elements) {
+                if (!elementy || elementy.includes(el.getAttribute('name'))) {
+                    const rootNode = xsl.importNode(el, true);
+                    varNode.appendChild(rootNode);
+                }
+            }
+        }
+
+        const loadXML = async (url) => {
+            return new Promise(function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", url, true);
+                xhr.onload = function () {
+                    if (this.status >= 200 && this.status < 300) {
+                        resolve(xhr.responseXML);
+                    } else {
+                        reject({
+                            status: this.status,
+                            statusText: xhr.statusText
+                        });
+                    }
+                };
+                xhr.onerror = function () {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                };
+                xhr.send();
+            });
+        }
+
+        function saveXml(xml) {
+            var formData = new FormData();
+            formData.append('file2', new Blob([xml], { type: 'text/xml' }));
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/xml', true);
+            xhr.onload = () => {
+                console.log(xhr.statusText, xhr.responseXML);
+            };
+            xhr.onerror = () => {
+                console.error(xhr.statusText);
+            };
+            xhr.send(formData);
+        }
+
+        (async () => {
+            const xsl = await loadXML("xsl/JednostkaInna.xsl");
+
+            const nazwy = await loadXML('xsd/JednostkaInnaStrukturyDanychSprFin_v1-0.xsd');
+            kopiaElementow(xsl, "nazwy", nazwy, "xsd:complexType", ['BilansJednostkaInna', 'RZiSJednostkaInna', 'ZestZmianWKapitaleJednostkaInna', 'RachPrzeplywowJednostkaInna']);
+
+            const podatek = await loadXML('xsd/StrukturyDanychSprFin_v1-1.xsd');
+            kopiaElementow(xsl, "podatek", podatek, "xsd:complexType", ['TInformacjaDodatkowaDotyczacaPodatkuDochodowego']);
+
+            const pkd = await loadXML('xsd/KodyPKD_v2-0E.xsd');
+            kopiaElementow(xsl, "pkd", pkd, "xs:simpleType", null);
+
+            xsltProcessor.importStylesheet(xsl);
+            xsltProcessor.setParameter('', 'procesor', 'klient');
+            xsltProcessor.setParameter('', 'root', '');
+        })();
+
+        const handleFileSelect1 = (evt) => {
+            var reader = new FileReader(),
+                parser = new DOMParser(),
+                file1 = evt.target.files;
+
+            reader.onload = (e) => {
+                let xml = e.target.result;
+                saveXml(xml);
+
+                let m = new RegExp('<(\\w+:)?JednostkaInna.*</(\\1)?JednostkaInna[^>]*>', 'sm').exec(xml);
+                if (m)
+                    xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + m[0];
+
+                xml = parser.parseFromString(xml, "text/xml");
+                resultDocument = xsltProcessor.transformToFragment(xml, document);
+
+                document.getElementById("loader").style.display = "none";
+                document.body.appendChild(resultDocument);
+            };
+
+            reader.readAsText(file1[0]);
+        }
+
+        const handleFileSelect2 = (evt) => {
+            document.getElementById("form").submit();
+        }
+
+        document.getElementById('file2').addEventListener('change', handleFileSelect1, false);
+    </script>
+</body>
+
+</html>
