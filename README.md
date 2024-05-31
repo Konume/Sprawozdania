@@ -1,23 +1,34 @@
 # Sprawozdania
 Sprawozdania
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Aby uruchomić server do strony należy w konsoli cmd przejść do katalogu projektu i wpisać komende node server.js. W przeglądarce należy przejść na http://localhost:80881/
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Nazwa pełna: Strona do odczytania i analizy Sprawozdań Finansowych w Javie
+----
 Nazwa skrócona: Sprawozdania
+---
 Opis projektu i cele tworzonego oprogramowania
+---
 Celem mojego projektu jest stworzenie strony webowej umożliwiającej użytkownikom analizę sprawozdań finansowych przedsiębiorstw. Strona będzie umożliwiała wczytywanie danych finansowych z plików XML, analizę tych danych za pomocą różnych wskaźników finansowych oraz wizualizację wyników w formie interaktywnych wykresów i raportów. Projekt ma na celu ulepszyć otwartość i przejrzystość danych finansowych na rynku Polskim
+
 Data początku projektu: 9 marca 2024
+----
 Data końca projektu: Przybliżony 9 marca 2026
-Odpowiedzialność za oprogramowanie:
+----
+Odpowiedzialność za oprogramowanie: Zuzanna Szymańska
+---
 Budżet i harmonogram prac: 0,00 zł, harmonogram prac w pliku dokumentacja.ods
+---
 Technologie
     • Java: Główny język programowania.
     • XSLT
     • CSS
     • HTML
+---
 Prawa autorskie
     • Autor: Zuzanna Szymańska
-    • Warunki licencyjne do oprogramowania: MIT license  
+    • Warunki licencyjne do oprogramowania: MIT license 
+---
 Funkcjonalności
     1. Wczytywanie danych: Możliwość wczytywania sprawozdań finansowych z plików XML, które pobrałeś z eKRS
     2. Dostęp do sprawozdań załadowanych na serwerze. Możliwość umieszczenia tam sprawozdań z rejonu. Wybierając z listy pobieranej przez json’a umieszczonego na serwerze. 
@@ -28,6 +39,7 @@ Funkcjonalności
        Analizowanie danych wyczytanych w standardowych raportach finansowych, przez wyliczanie wskaźników. ---- w trakcie 
     5. Przedstawienie wskaźników finansowych
        Przedstawienie wyliczonych wskaźników poprzez analizę w przejrzysty sposób.  --- w trakcie
+       
 
 Struktura projektu na dzień 31.05.2024 
 /Sprawozdania
@@ -168,4 +180,5 @@ const handleFileSelect2= (evt) => {
 }
 
 Podsumowanie
+---
 Projekt aplikacji do analizy sprawozdań finansowych w Javie jest w trakcie implementacji. Ostateczna wersja aplikacji umożliwi użytkownikom skuteczną analizę kondycji finansowej różnych firm. Dzięki funkcjom wczytywania danych, obliczania wskaźników finansowych i generowania wizualizacji, użytkownicy będą mogli szybko i łatwo zrozumieć sytuację finansową analizowanych przedsiębiorstw. 
