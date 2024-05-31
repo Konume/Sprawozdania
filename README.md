@@ -12,7 +12,9 @@ Odpowiedzialność za oprogramowanie:
 Budżet i harmonogram prac: 0,00 zł, harmonogram prac w pliku dokumentacja.ods
 Technologie
     • Java: Główny język programowania.
-    • XSL
+    • XSLT
+    • CSS
+    • HTML
 Prawa autorskie
     • Autor: Zuzanna Szymańska
     • Warunki licencyjne do oprogramowania: MIT license  
@@ -26,6 +28,7 @@ Funkcjonalności
        Analizowanie danych wyczytanych w standardowych raportach finansowych, przez wyliczanie wskaźników. ---- w trakcie 
     5. Przedstawienie wskaźników finansowych
        Przedstawienie wyliczonych wskaźników poprzez analizę w przejrzysty sposób.  --- w trakcie
+
 Struktura projektu na dzień 31.05.2024 
 /Sprawozdania
 ├── node_modules/
@@ -42,6 +45,8 @@ Struktura projektu na dzień 31.05.2024
 ├── package.json                    
 ├── package-lock.json 
 └── server.js                  
+
+
 Implementacja
     1. Wczytywanie danych: Wczytywanie danych z plików XML 
     2. Analiza finansowa: Obliczanie wskaźników finansowych na podstawie wczytanych danych. --- w trakcie
