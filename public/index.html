@@ -43,7 +43,7 @@
     
 
     
-    <div id="loader" class="pg">
+    <div id="container" class="pg">
         <h1 class="pg">Wizualizacja pliku XML sprawozdania finansowego</h1>
         <form id="form" action="/xml" method="POST" enctype="multipart/form-data">
             <p>Wybierz plik XML ze sprawozdaniem finansowym (typu <b>Jednostka Inna|Mała|Mikro|Op</b>)</p>
@@ -65,10 +65,12 @@
         const kopiaElementow = (xsl, zmienna, xml, tag, elementy) => {
             let varNode;
             for (let el of xsl.getElementsByTagName("xsl:variable")) {
-                if (el.getAttribute('name') == zmienna)
+                if (el.getAttribute('name') == zmienna){
                     varNode = el;
+                    break;
+                }
             }
-
+            if (varNode){
             let elements = xml.children[0].children;
             for (let el of elements) {
                 if (!elementy || elementy.includes(el.getAttribute('name'))) {
@@ -76,8 +78,10 @@
                     varNode.appendChild(rootNode);
                 }
             }
+        } else {
+            console.error("Nie znaleziono zmiennej XSL: ${zmienna}");
         }
-
+    }
         const loadXML = async (url) => {
             return new Promise(function (resolve, reject) {
                 let xhr = new XMLHttpRequest();
@@ -148,9 +152,15 @@
 
                 xml = parser.parseFromString(xml, "text/xml");
                 resultDocument = xsltProcessor.transformToFragment(xml, document);
+                var container = document.getElementById('container');
+                container.innerHTML = '';
+                var importedNode = document.importNode(resultDocument, true);
 
-                document.getElementById("loader").style.display = "none";
-                document.body.appendChild(resultDocument);
+                 // Dodaj zaimportowany dokument do kontenera
+                container.appendChild(importedNode);
+               
+
+               
             };
 
             reader.readAsText(file1[0]);
