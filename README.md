@@ -43,21 +43,21 @@ Funkcjonalności
 
 Struktura projektu na dzień 31.05.2024
 ----
-/Sprawozdania
-├── node_modules/
-├── public/                 # Przykładowe pliki XML i widok XML   
-│   ├── xml/
-|   ├── xsd/
-|   ├── xsl/
-│   ├── index.html
-│   ├── scripts.js
-│   ├── sf.js
-│   ├── style.css
-│   ├── sf.css
-│   ├── sprawozdanie.png
-├── package.json                    
-├── package-lock.json 
-└── server.js                  
+        /Sprawozdania
+        ├── node_modules/
+        ├── public/                 # Przykładowe pliki XML i widok XML   
+        │   ├── xml/
+        |   ├── xsd/
+        |   ├── xsl/
+        │   ├── index.html
+        │   ├── scripts.js
+        │   ├── sf.js
+        │   ├── style.css
+        │   ├── sf.css
+        │   ├── sprawozdanie.png
+        ├── package.json                    
+        ├── package-lock.json 
+        └── server.js                  
 
 ---
 
