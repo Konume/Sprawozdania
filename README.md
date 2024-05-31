@@ -31,15 +31,19 @@ Prawa autorskie
 ---
 Funkcjonalności
     1. Wczytywanie danych: Możliwość wczytywania sprawozdań finansowych z plików XML, które pobrałeś z eKRS
+--
     2. Dostęp do sprawozdań załadowanych na serwerze. Możliwość umieszczenia tam sprawozdań z rejonu. Wybierając z listy pobieranej przez json’a umieszczonego na serwerze. 
+--
     3. Wizualizacje wyników interaktywnie oraz wizualizacja sprawozdań:
        Obrazowe przedstawienie sprawozdania finansowego poprzez stronę html,
        Obrazowe przestawienie wyników finansowych, jak bilans, rachunek zysków i strat.
+--
     4. Analiza danych finansowych.
        Analizowanie danych wyczytanych w standardowych raportach finansowych, przez wyliczanie wskaźników. ---- w trakcie 
+--
     5. Przedstawienie wskaźników finansowych
        Przedstawienie wyliczonych wskaźników poprzez analizę w przejrzysty sposób.  --- w trakcie
-       
+----  
 
 Struktura projektu na dzień 31.05.2024 
 /Sprawozdania
