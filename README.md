@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 Aby uruchomić server do strony należy w konsoli cmd przejść do katalogu projektu i wpisać komende node server.js. W przeglądarce należy przejść na http://localhost:80881/
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Nazwa pełna: Strona do odczytania i analizy Sprawozdań Finansowych w Javie
+Nazwa pełna: Strona do odczytania i analizy Sprawozdań Finansowych w JavieScript
 ----
 Nazwa skrócona: Sprawozdania
 ---
